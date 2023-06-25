@@ -59,7 +59,7 @@ function drawAsphaltRoad() {
 
   // Draw dashed lane markings
   ctx.beginPath();
-  ctx.setLineDash([18, 10]);
+  ctx.setLineDash([10, 10]);
   ctx.lineWidth = 2;
   ctx.strokeStyle = "#F0E68C";
   ctx.moveTo(0, canvas.height * 0.9);
@@ -78,7 +78,7 @@ drawAsphaltRoad();
 function drawSidewalkLights() {
   const lightSpacing = canvas.width / 5;
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0.5; i < 5; i++) {
     const lightX = i * lightSpacing;
     const lightYTop = canvas.height * 0.6;
     const lightYBottom = canvas.height * 0.8;
@@ -119,58 +119,17 @@ function drawGlowingLightAndPole(lightX, lightYTop, lightYBottom) {
 }
 
 drawSidewalkLights();
-function drawTree(x, y) {
-  // Draw the tree trunk
-  ctx.beginPath();
-  ctx.fillStyle = "saddlebrown";
-  ctx.fillRect(x - 5, y + 20, 10, 50);
-  ctx.closePath();
-
-  // Draw the tree branches
-  drawBranches(x, y);
-
-  // Draw the tree leaves
-  drawLeaves(x, y);
-}
-function drawBranches(x, y) {
-  ctx.beginPath();
-  ctx.strokeStyle = "saddlebrown";
-  ctx.lineWidth = 5;
-  
-  const branchHeight = 20;
-
-  // Draw a few branches
-  ctx.moveTo(x, y + branchHeight);
-  ctx.lineTo(x - 20, y - 10);
-  ctx.moveTo(x, y + branchHeight);
-  ctx.lineTo(x + 20, y - 10);
-  ctx.moveTo(x, y + branchHeight);
-  ctx.lineTo(x - 10, y - 20);
-  ctx.moveTo(x, y + branchHeight);
-  ctx.lineTo(x + 10, y - 20);
-
-  ctx.stroke();
-  ctx.closePath();
+async function drawTree(x, y) {
+  const img = new Image();
+  img.src = "treeImage.png"; // Replace this with the URL of the tree image you want to use
+  img.crossOrigin = "anonymous";
+  await new Promise((resolve) => {
+    img.onload = () => {
+      ctx.drawImage(img, x - img.width / 2, y - img.height + 50);
+      resolve();
+    };
+  });
 }
 
-function drawLeaves(x, y) {
-  const leafRadius = 25;
-  const leafCount = 100;
-
-  ctx.beginPath();
-  ctx.fillStyle = "darkgreen";
-
-  for (let i = 0; i < leafCount; i++) {
-    const angle = Math.random() * Math.PI * 2;
-    const distance = Math.random() * leafRadius;
-    const leafX = x + Math.cos(angle) * distance;
-    const leafY = y - 10 + Math.sin(angle) * distance;
-    ctx.moveTo(leafX, leafY);
-    ctx.arc(leafX, leafY, 2, 0, Math.PI * 2);
-  }
-
-  ctx.fill();
-  ctx.closePath();
-}
 
 
