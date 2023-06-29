@@ -3,10 +3,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 const ctx = canvas.getContext("2d");
 const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-gradient.addColorStop(0, "black");
-gradient.addColorStop(0.3, "black");
-gradient.addColorStop(0.6, "black");
-gradient.addColorStop(1, "black");
+gradient.addColorStop(0, "#0c1445");
 ctx.fillStyle = gradient;
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -66,6 +63,7 @@ function drawAsphaltRoad() {
   ctx.lineTo(canvas.width, canvas.height * 0.9);
   ctx.stroke();
   ctx.setLineDash([]);
+  // drawCars();
 }
 
 const moonX = canvas.width * 0.9;
@@ -90,7 +88,7 @@ function drawSidewalkLights() {
     if (i < 5) {
       const treeX = lightX + lightSpacing / 2;
       const treeY = canvas.height * 0.6;
-      drawTree(treeX, treeY);
+    
     }
   }
 }
@@ -119,17 +117,51 @@ function drawGlowingLightAndPole(lightX, lightYTop, lightYBottom) {
 }
 
 drawSidewalkLights();
-async function drawTree(x, y) {
-  const img = new Image();
-  img.src = "treeImage.png"; // Replace this with the URL of the tree image you want to use
-  img.crossOrigin = "anonymous";
-  await new Promise((resolve) => {
-    img.onload = () => {
-      ctx.drawImage(img, x - img.width / 2, y - img.height + 50);
-      resolve();
-    };
-  });
+
+//=================================================Animating walking man==================================================
+
+
+
+
+let walkingManImg = new Image();
+walkingManImg.src = 'manwalking.jpg';
+
+let xIndex = 0;
+let yIndex = 0;
+let cols = 5;
+let rows = 4;
+let spriteWidth = 8000 / 8;
+let spriteHeight = 3098;
+let frame = 0;
+let walkingManX = 0;
+
+
+
+function animateWalkingMan() {
+  requestAnimationFrame(animateWalkingMan);
+
+  // We'll redraw every frame to speed up the animation
+  frame = (frame + 1) % 32; // We'll increment the frame here
+  if (frame % 1 > 0) return; // We'll only draw every frame
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  xIndex = (frame / 1) % 8; // xIndex is now derived from the frame
+
+  ctx.drawImage(walkingManImg,
+    xIndex * spriteWidth, 0, spriteWidth, spriteHeight, 
+    walkingManX++, canvas.height * 0.6 - spriteHeight, spriteWidth, spriteHeight); // Adjusted y-coordinate
+
+  if (walkingManX > canvas.width) {
+    walkingManX = 0;
+  }
 }
+
+
+walkingManImg.onload = function() {
+  console.log('Image loaded');
+  animateWalkingMan();
+};
+
 
 
 
