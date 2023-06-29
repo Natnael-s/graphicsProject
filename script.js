@@ -73,6 +73,25 @@ drawGlow(moonX, moonY, moonRadius);
 drawMoon(moonX, moonY, moonRadius);
 drawAsphaltRoad();
 
+// function drawSidewalkLights() {
+//   const lightSpacing = canvas.width / 5;
+
+//   for (let i = 0.5; i < 5; i++) {
+//     const lightX = i * lightSpacing;
+//     const lightYTop = canvas.height * 0.6;
+//     const lightYBottom = canvas.height * 0.8;
+
+//     // Draw the glowing light and light pole for the top side only
+//     drawGlowingLightAndPole(lightX, lightYTop, lightYBottom);
+
+//     // Draw trees between the poles
+//     if (i < 5) {
+//       const treeX = lightX + lightSpacing / 2;
+//       const treeY = canvas.height * 0.6;
+    
+//     }
+//   }
+// }
 function drawSidewalkLights() {
   const lightSpacing = canvas.width / 5;
 
@@ -87,11 +106,16 @@ function drawSidewalkLights() {
     // Draw trees between the poles
     if (i < 5) {
       const treeX = lightX + lightSpacing / 2;
-      const treeY = canvas.height * 0.6;
-    
+      const treeY = canvas.height * 0.75;
+      const numberOfTrees = Math.floor(Math.random() * 3) + 1; // draw 1 to 3 trees
+      for (let j = 0; j < numberOfTrees; j++) {
+        const offset = (Math.random() - 0.5) * lightSpacing * 0.8; // random offset from center
+        drawTree(treeX + offset, treeY, 30, 0, 10, 'brown', 'green'); // draw tree
+      }
     }
   }
 }
+
 
 
 
@@ -118,50 +142,32 @@ function drawGlowingLightAndPole(lightX, lightYTop, lightYBottom) {
 
 drawSidewalkLights();
 
-//=================================================Animating walking man==================================================
+//=================================================dRAWING TREE================================================
 
+function drawTree(startX, startY, len, angle, branchWidth, color1, color2) {
+  ctx.beginPath();
+  ctx.save();
+  ctx.strokeStyle = color1; // color of branch
+  ctx.fillStyle = color2; // color of leaf
+  ctx.lineWidth = branchWidth;
+  ctx.translate(startX, startY);
+  ctx.rotate(angle * Math.PI / 180);
+  ctx.moveTo(0, 0);
+  ctx.lineTo(0, -len);
+  ctx.stroke();
 
-
-
-let walkingManImg = new Image();
-walkingManImg.src = 'manwalking.jpg';
-
-let xIndex = 0;
-let yIndex = 0;
-let cols = 5;
-let rows = 4;
-let spriteWidth = 8000 / 8;
-let spriteHeight = 3098;
-let frame = 0;
-let walkingManX = 0;
-
-
-
-function animateWalkingMan() {
-  requestAnimationFrame(animateWalkingMan);
-
-  // We'll redraw every frame to speed up the animation
-  frame = (frame + 1) % 32; // We'll increment the frame here
-  if (frame % 1 > 0) return; // We'll only draw every frame
-
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  xIndex = (frame / 1) % 8; // xIndex is now derived from the frame
-
-  ctx.drawImage(walkingManImg,
-    xIndex * spriteWidth, 0, spriteWidth, spriteHeight, 
-    walkingManX++, canvas.height * 0.6 - spriteHeight, spriteWidth, spriteHeight); // Adjusted y-coordinate
-
-  if (walkingManX > canvas.width) {
-    walkingManX = 0;
+  if(len < 5) { // when length of branch is less than 5, draw a leaf
+    ctx.beginPath();
+    ctx.arc(0, -len, 10, 0, Math.PI / 2);
+    ctx.fill();
+    ctx.restore();
+    return;
   }
+
+  drawTree(0, -len, len * 0.7, angle - 15, branchWidth * 0.6);
+  drawTree(0, -len, len * 0.7, angle + 15, branchWidth * 0.6);
+
+  ctx.restore();
 }
-
-
-walkingManImg.onload = function() {
-  console.log('Image loaded');
-  animateWalkingMan();
-};
-
-
 
 
