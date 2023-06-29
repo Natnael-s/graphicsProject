@@ -106,15 +106,18 @@ function drawSidewalkLights() {
     // Draw trees between the poles
     if (i < 5) {
       const treeX = lightX + lightSpacing / 2;
-      const treeY = canvas.height * 0.75;
+      const treeY = canvas.height * 0.8;
       const numberOfTrees = Math.floor(Math.random() * 3) + 1; // draw 1 to 3 trees
       for (let j = 0; j < numberOfTrees; j++) {
-        const offset = (Math.random() - 0.5) * lightSpacing * 0.8; // random offset from center
+        let offset = (Math.random() - 0.5) * lightSpacing * 0.8; // random offset from center
+        if (treeX + offset < 0) offset = -treeX; // Prevent tree from going off screen to the left
         drawTree(treeX + offset, treeY, 30, 0, 10, 'brown', 'green'); // draw tree
       }
     }
   }
 }
+
+
 
 
 
