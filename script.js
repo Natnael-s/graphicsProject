@@ -73,25 +73,7 @@ drawGlow(moonX, moonY, moonRadius);
 drawMoon(moonX, moonY, moonRadius);
 drawAsphaltRoad();
 
-// function drawSidewalkLights() {
-//   const lightSpacing = canvas.width / 5;
 
-//   for (let i = 0.5; i < 5; i++) {
-//     const lightX = i * lightSpacing;
-//     const lightYTop = canvas.height * 0.6;
-//     const lightYBottom = canvas.height * 0.8;
-
-//     // Draw the glowing light and light pole for the top side only
-//     drawGlowingLightAndPole(lightX, lightYTop, lightYBottom);
-
-//     // Draw trees between the poles
-//     if (i < 5) {
-//       const treeX = lightX + lightSpacing / 2;
-//       const treeY = canvas.height * 0.6;
-    
-//     }
-//   }
-// }
 function drawSidewalkLights() {
   const lightSpacing = canvas.width / 5;
 
@@ -172,5 +154,8 @@ function drawTree(startX, startY, len, angle, branchWidth, color1, color2) {
 
   ctx.restore();
 }
+
+
+
 
 

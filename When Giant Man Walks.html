@@ -1,9 +1,18 @@
+
+ <!-- NAME: Natnael Sisay-->
+ <!--ID:BDU 1308373-->
+
+
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>When Giant Man walks</title>
+   
+
     <style>
         html, body {
           margin: 0;
@@ -12,17 +21,17 @@
         }
         #sunsetCanvas {
           display: block;
+  
         }
 
 
         #walking-man {
-          width:130px; /* width of one frame */
-          height: 230px; /* height of the sprite sheet */
-          /* overflow:hidden; */
+          width:130px; 
+          height: 230px; 
           background: url('manwalking2updated.png') 0 0;
           background-size:cover;
           position: absolute;
-          bottom: 20%; /* position at the bottom of the road */
+          bottom: 19%; 
           animation: walk 1s steps(8) infinite, move 6s linear infinite;
     
         }
@@ -36,27 +45,20 @@
           0% { transform: translateX(-100px); }
           100% {transform: translateX(1200px) }
         }
+       
 
 
-
-
-
+  
 
       </style>
 </head>
 <body>
     <canvas id="sunsetCanvas"></canvas>
     <div id="walking-man"></div>
-         <script>
-          document.addEventListener("DOMContentLoaded", function() {
-  var walkingMan = document.getElementById('walking-man');
-  walkingMan.addEventListener('animationend', function() {
-    // stop the walking animation
-    walkingMan.style.animationPlayState = 'paused';
-  });
-});
+    
 
-         </script>
+
     <script src="script.js"></script>
+    
 </body>
 </html>
