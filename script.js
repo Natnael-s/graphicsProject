@@ -1,3 +1,4 @@
+
 const canvas = document.getElementById("sunsetCanvas");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -21,6 +22,12 @@ for (let i = 0; i < 100; i++) {
   const size = Math.random() * 2;
   drawStar(x, y, size);
 }
+
+
+
+
+
+
 
 function drawGlow(x, y, radius) {
   const glowGradient = ctx.createRadialGradient(x, y, 0, x, y, radius * 2);
@@ -74,6 +81,23 @@ drawMoon(moonX, moonY, moonRadius);
 drawAsphaltRoad();
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function drawSidewalkLights() {
   const lightSpacing = canvas.width / 5;
 
@@ -96,8 +120,32 @@ function drawSidewalkLights() {
         drawTree(treeX + offset, treeY, 30, 0, 10, 'brown', 'green'); // draw tree
       }
     }
+
+    // Draw the stones
+    const numStones = Math.floor(Math.random() * 4) + 1; // draw 1 to 4 stones
+    const stoneSpacing = lightSpacing / (numStones + 1);
+
+    for (let k = 1; k <= numStones; k++) {
+      const stoneX = lightX + k * stoneSpacing;
+      const stoneY = lightYBottom;
+      const stoneSize = 5; // adjust the size of the stone ellipse as desired
+
+      drawStone(stoneX, stoneY, stoneSize);
+    }
   }
 }
+
+function drawStone(x, y, size) {
+  ctx.beginPath();
+  ctx.ellipse(x, y, size, size / 2, 0, 0, Math.PI * 2);
+  ctx.closePath();
+  ctx.fillStyle = '#38464B';
+  ctx.fill();
+}
+
+// Call the function
+drawSidewalkLights();
+
 
 
 
@@ -154,7 +202,6 @@ function drawTree(startX, startY, len, angle, branchWidth, color1, color2) {
 
   ctx.restore();
 }
-
 
 
 
